@@ -71,51 +71,57 @@
         <p><strong data-lang="binance-info">币安官方科普比特币最小单位：</strong> 
         <a href="https://x.com/binance/status/1840511897038114839?s=46" target="_blank" data-lang="view-details">点击查看</a></p>
 
-        <a class="button" href="https://bai13567.github.io/index.html" data-lang="back-home">返回首页</a>
+        <a id="back-home" class="button" href="https://bai13567.github.io/" data-lang="back-home">返回首页</a>
     </div>
 
     <script>
-        function getQueryParam(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
+    function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+    }
+
+    function applyLanguage(lang) {
+        const translations = {
+            "en": {
+                "about-title": "About satx",
+                "official-promo": "Official promotion from Gate Exchange:",
+                "btc-holdings": "MicroStrategy explains precise BTC quantity:",
+                "binance-info": "Binance explains the smallest unit of Bitcoin:",
+                "view-details": "View Details",
+                "back-home": "Back to Home"
+            },
+            "zh": {
+                "about-title": "关于 satx",
+                "official-promo": "来自芝麻交易所 Gate 的官方宣传：",
+                "btc-holdings": "持仓大量 BTC 的微策略公司科普 BTC 精准数量：",
+                "binance-info": "币安官方科普比特币最小单位：",
+                "view-details": "点击查看",
+                "back-home": "返回首页"
+            }
+        };
+
+        document.querySelectorAll("[data-lang]").forEach(el => {
+            const key = el.getAttribute("data-lang");
+            if (translations[lang][key]) {
+                el.textContent = translations[lang][key];
+            }
+        });
+
+        // ✅ 更新 "回到主页" 按钮的 href，确保带上 ?lang= 语言参数
+        const backHomeLink = document.getElementById("back-home");
+        if (backHomeLink) {
+            backHomeLink.href = `https://bai13567.github.io/?lang=${lang}`;
         }
+    }
 
-        function applyLanguage(lang) {
-            const translations = {
-                "en": {
-                    "about-title": "About satx",
-                    "official-promo": "Official promotion from Gate Exchange:",
-                    "btc-holdings": "MicroStrategy explains precise BTC quantity:",
-                    "binance-info": "Binance explains the smallest unit of Bitcoin:",
-                    "view-details": "View Details",
-                    "back-home": "Back to Home"
-                },
-                "zh": {
-                    "about-title": "关于 satx",
-                    "official-promo": "来自芝麻交易所 Gate 的官方宣传：",
-                    "btc-holdings": "持仓大量 BTC 的微策略公司科普 BTC 精准数量：",
-                    "binance-info": "币安官方科普比特币最小单位：",
-                    "view-details": "点击查看",
-                    "back-home": "返回首页"
-                }
-            };
+    function syncLanguage() {
+        let language = getQueryParam("lang") || localStorage.getItem("language") || "zh";
+        localStorage.setItem("language", language); // 保存到 localStorage
+        applyLanguage(language);
+    }
 
-            document.querySelectorAll("[data-lang]").forEach(el => {
-                const key = el.getAttribute("data-lang");
-                if (translations[lang][key]) {
-                    el.textContent = translations[lang][key];
-                }
-            });
-        }
-
-        function syncLanguage() {
-            let language = getQueryParam("lang") || localStorage.getItem("language") || "zh";
-            localStorage.setItem("language", language); // 保存到 localStorage
-            applyLanguage(language);
-        }
-
-        document.addEventListener("DOMContentLoaded", syncLanguage);
-    </script>
-
+    document.addEventListener("DOMContentLoaded", syncLanguage);
+</script>
+    
 </body>
 </html>
