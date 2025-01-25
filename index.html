@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>关于 satx</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title data-lang="about-title">关于 satx</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,8 +17,8 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            max-width: 600px; /* 适配电脑 */
-            width: 90%; /* 适配手机 */
+            max-width: 600px;
+            width: 90%;
             margin: auto;
         }
         h1 {
@@ -29,10 +30,6 @@
             font-size: 18px;
             color: #333;
             margin: 15px 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px; /* 图标和文字间距 */
         }
         a {
             color: #007bff;
@@ -42,33 +39,78 @@
         a:hover {
             text-decoration: underline;
         }
-        .emoji {
-            font-size: 20px; /* 让图标更清晰 */
+        .button {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 12px 24px;
+            font-size: 18px;
+            color: white;
+            background-color: #007bff;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: 0.3s;
+            width: 80%;
+            max-width: 250px;
         }
-
-        /* 手机端优化 */
-        @media screen and (max-width: 480px) {
-            h1 {
-                font-size: 24px; /* 手机端标题稍微小一点 */
-            }
-            p {
-                font-size: 16px;
-                flex-direction: column;
-                gap: 5px;
-            }
+        .button:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>关于 satx</h1>
+        <h1 data-lang="about-title">关于 satx</h1>
 
-        <p><span class="emoji">📢</span> <strong>来自芝麻交易所 Gate 的官方宣传：</strong> <a href="https://www.gate.io/zh/learn/articles/btc-misconceptions/3995" target="_blank">点击查看</a></p>
-        <p><span class="emoji">📊</span> <strong>持仓大量 BTC 的微策略公司科普 BTC 精准数量：</strong> <a href="https://x.com/saylor/status/1829500825674092736" target="_blank">点击查看</a></p>
-        <p><span class="emoji">🔍</span> <strong>币安官方科普比特币最小单位：</strong> <a href="https://x.com/binance/status/1840511897038114839?s=46" target="_blank">点击查看</a></p>
+        <p><strong data-lang="official-promo">来自芝麻交易所 Gate 的官方宣传：</strong> <a href="https://www.gate.io/zh/learn/articles/btc-misconceptions/3995" target="_blank" data-lang="view-details">点击查看</a></p>
+        <p><strong data-lang="btc-holdings">持仓大量 BTC 的微策略公司科普 BTC 精准数量：</strong> <a href="https://x.com/saylor/status/1829500825674092736" target="_blank" data-lang="view-details">点击查看</a></p>
+        <p><strong data-lang="binance-info">币安官方科普比特币最小单位：</strong> <a href="https://x.com/binance/status/1840511897038114839?s=46" target="_blank" data-lang="view-details">点击查看</a></p>
 
+        <a class="button" href="https://你的主站.github.io/index.html" data-lang="back-home">返回首页</a>
     </div>
+
+    <script>
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        function applyLanguage(lang) {
+            const translations = {
+                "en": {
+                    "about-title": "About satx",
+                    "official-promo": "Official promotion from Gate Exchange:",
+                    "btc-holdings": "MicroStrategy explains precise BTC quantity:",
+                    "binance-info": "Binance explains the smallest unit of Bitcoin:",
+                    "view-details": "View Details",
+                    "back-home": "Back to Home"
+                },
+                "zh": {
+                    "about-title": "关于 satx",
+                    "official-promo": "来自芝麻交易所 Gate 的官方宣传：",
+                    "btc-holdings": "持仓大量 BTC 的微策略公司科普 BTC 精准数量：",
+                    "binance-info": "币安官方科普比特币最小单位：",
+                    "view-details": "点击查看",
+                    "back-home": "返回首页"
+                }
+            };
+
+            document.querySelectorAll("[data-lang]").forEach(el => {
+                const key = el.getAttribute("data-lang");
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+        }
+
+        function syncLanguage() {
+            let language = getQueryParam("lang") || localStorage.getItem("language") || "zh";
+            localStorage.setItem("language", language); // 保存到 localStorage
+            applyLanguage(language);
+        }
+
+        document.addEventListener("DOMContentLoaded", syncLanguage);
+    </script>
 
 </body>
 </html>
