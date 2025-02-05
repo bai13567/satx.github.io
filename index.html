@@ -71,8 +71,12 @@
         <p><strong data-lang="binance-info">币安官方科普比特币最小单位：</strong> 
         <a href="https://x.com/binance/status/1840511897038114839?s=46" target="_blank" data-lang="view-details">点击查看</a></p>
 
-<p><strong data-lang="follow-twitter">关注 satx 推特建设者：</strong> 
-<a id="follow-twitter" href="https://x.com/bai13567" target="_blank" data-lang="follow-now">点击关注</a></p>
+        <p><strong data-lang="follow-twitter">关注 satx 推特建设者：</strong> 
+        <a id="follow-twitter" href="https://x.com/bai13567" target="_blank" data-lang="follow-now">点击关注</a></p>
+
+        <!-- 新增的“社区商务合作”部分 -->
+        <p><strong data-lang="business-contact">社区商务合作：</strong> 
+        <a id="linkedin-link" href="http://linkedin.com/in/baizhouweb3" target="_blank" data-lang="visit-linkedin">访问 LinkedIn</a></p>
         
         <a id="back-home" class="button" href="https://bai13567.github.io/" data-lang="back-home">返回首页</a>
     </div>
@@ -93,7 +97,9 @@
                 "view-details": "View Details",
                 "back-home": "Back to Home",
                 "follow-twitter": "Follow satx Twitter Builder:",
-"follow-now": "Go to Twitter",
+                "follow-now": "Go to Twitter",
+                "business-contact": "Community Business Cooperation:",
+                "visit-linkedin": "Visit LinkedIn"
             },
             "zh": {
                 "about-title": "关于 satx",
@@ -103,7 +109,9 @@
                 "view-details": "点击查看",
                 "back-home": "返回首页",
                 "follow-twitter": "关注satx推特建设者:",
-"follow-now": "前往推特",
+                "follow-now": "前往推特",
+                "business-contact": "社区商务合作：",
+                "visit-linkedin": "访问 LinkedIn"
             }
         };
 
@@ -118,6 +126,12 @@
         const backHomeLink = document.getElementById("back-home");
         if (backHomeLink) {
             backHomeLink.href = `https://bai13567.github.io/?lang=${lang}`;
+        }
+
+        // ✅ 更新 LinkedIn 链接文本
+        const linkedinLink = document.getElementById("linkedin-link");
+        if (linkedinLink) {
+            linkedinLink.textContent = translations[lang]["visit-linkedin"];
         }
     }
 
